@@ -28,29 +28,8 @@
 			return false;
 		}
 		
-	};
-	
-	const checkfrm2 = function(){
-		if(document.wfrm.info.checked == false){
-			alert('동의를 하셔야합니다.');
-			return;
-		}
-		if(document.wfrm.writer.value.trim() == ''){
-			alert('이름을 입력하셔야합니다.');
-			return;
-		}
-		if(document.wfrm.password.value.trim() == ''){
-			alert('비밀번호를 입력하셔야합니다.');
-			return;
-		}
-		if(document.wfrm.subject.value.trim() == ''){
-			alert('제목을 입력하셔야합니다.');
-			return;
-		}
-		
 		document.wfrm.submit();	<!-- 등록버튼 : <button> ==> <input type="button"> 변경시 수정 -->
 	};
-
 	
 </script>
 
@@ -118,7 +97,7 @@
 				</div>
 				<div class="align_right">
 					<!-- <button id="wbtn" class="btn_write btn_txt01" style="cursor: pointer;">등록</button> -->
-					<input type="button" id="wbtn" value="등록" class="btn_write btn_txt01" style="cursor: pointer;" onclick="checkfrm2()"/>	<!-- 디자인이 바뀔경우 소스코드도 변해야함 -->
+					<input type="button" id="wbtn" value="등록" class="btn_write btn_txt01" style="cursor: pointer;" onclick="checkfrm()"/>	<!-- 디자인이 바뀔경우 소스코드도 변해야함 -->
 				</div>
 			</div>
 			<!--//게시판-->
