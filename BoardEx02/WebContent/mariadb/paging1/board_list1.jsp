@@ -110,7 +110,7 @@
 <div class="con_txt">
 	<div class="contents_sub">
 		<div class="board_top">
-			<div class="bold">총 <span class="txt_orange">1</span>건</div>
+			<div class="bold">총 <span class="txt_orange"><%= totalRecode %></span>건</div>
 		</div>
 
 		<!--게시판-->
@@ -145,7 +145,7 @@
 					endBlock = totalPage;
 				}
 				
-				if(startBlock ==1 ){
+				if(startBlock == 1 ){
 					out.println("<span><a>&lt;&lt;</a></span>");
 				} else {
 					out.println("<span><a href='board_list1.jsp?cpage="+ (startBlock-blockPerPage) +"'>&lt;&lt;</a></span>");
