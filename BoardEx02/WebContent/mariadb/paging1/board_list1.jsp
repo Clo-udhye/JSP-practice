@@ -175,8 +175,7 @@
 				} else {
 					out.println("<span><a href='board_list1.jsp?cpage="+ (cpage+1) +"'>&gt;</a></span>");
 				}
-				out.println("&nbsp;&nbsp;");
-				
+
 				out.println("&nbsp;");
 				if(endBlock == totalPage ){
 					out.println("<span><a>&gt;&gt;</a></span>");
