@@ -25,7 +25,7 @@
 		
 		conn = dataSource.getConnection();
 		
-		String sql = "select seq, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit from board1 order by seq desc";	// 최근글을 가장 윗쪽에
+		String sql = "select seq, subject, writer, date_format(wdate, '%Y-%m-%d') wdate, hit, datediff(now(), wdate) wgap from board1 order by seq desc";	// 최근글을 가장 윗쪽에
 		pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		
 		rs = pstmt.executeQuery();
@@ -40,11 +40,17 @@
 			String writer = rs.getString("writer");
 			String wdate = rs.getString("wdate");
 			String hit = rs.getString("hit");
+			int wgap = rs.getInt("wgap");
 			
 			sbHtml.append("<tr>");
 			sbHtml.append("		<td>&nbsp;</td>");
 			sbHtml.append("		<td>"+ seq +"</td>");
-			sbHtml.append("		<td class='left'><a href='board_view1.jsp?seq="+ seq +"'>"+ subject +"</a>&nbsp;<img src='../../images/icon_hot.gif' alt='HOT'></td>");
+			sbHtml.append("		<td class='left'>");
+			sbHtml.append("<a href='board_view1.jsp?seq="+ seq +"'>"+ subject +"</a>&nbsp;");
+			if(wgap == 0){
+				sbHtml.append("<img src='../../images/icon_new.png' alt='NEW'>");	
+			}
+			sbHtml.append("</td>");
 			sbHtml.append("		<td>"+ writer +"</td>");
 			sbHtml.append("		<td>"+ wdate +"</td>");
 			sbHtml.append("		<td>"+ hit +"</td>");
