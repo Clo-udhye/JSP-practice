@@ -17,7 +17,7 @@
 	String subject = request.getParameter("subject");
 	String password = request.getParameter("password");
 	String content = request.getParameter("content");
-	String emot = request.getParameter("emot").substring(4);
+	String emot = request.getParameter("emot").replaceAll("emot", "");
 	String mail = "";
 	if(!request.getParameter("mail1").equals("") && !request.getParameter("mail2").equals("")){
 		mail = request.getParameter("mail1") + "@" + request.getParameter("mail2");
