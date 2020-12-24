@@ -1,0 +1,41 @@
+Page Navigation (페이지간의 흐름)
+* 흐름상 숨겨진 페이지 찾기(디자인X)
+글목록 (board_list1.jsp)
+	-(없음, 페이지번호)->
+	글쓰기 (board_write1.jsp)	
+		board_write1_ok.jsp		-(없음)->	board_list1.jsp
+	-(글번호, 페이지번호)-> 
+	글보기 (board_view1.jsp)
+		-(글번호, 페이지번호)-> 
+		글삭제 (board_delete1.jsp)	
+			-(글번호, 비밀번호)->
+			board__delete1_ok.jsp	-(없음)->board_list1.jsp
+		-(글번호, 페이지번호)-> 
+		글수정 (board_modify1.jsp)	
+			-(글번호, 비밀번호, 글자료)->
+			board__modify1_ok.jsp	-(글번호, 페이지번호)-> board_view1.jsp
+
+데이터베이스 테이블 구성
+글번호 	seq		int		not null	primary key
+제목 	subject		varchar(150)	not null		
+글쓴이 	writer		varchar(12)	not null
+이메일	mail		varchar(50)	
+비밀번호 	password		varchar(12)	not null
+내용  	content		varchar(2000)
+조회수	hit		int		not null
+아이피 	wip	 	varchar(15)	not null
+등록일	wdate		datetime		not null
+
+create table board1(
+seq int not null primary key auto_increment,
+subject varchar(150) not null,		
+writer varchar(12) not null,
+mail varchar(50),	
+password varchar(12) not null,
+content varchar(2000),
+hit int not null,
+wip varchar(15) not null,
+wdate datetime not null
+);
+
+insert into board1 values(0, '제목', '이름', 'test@test.com', '1234', '내용', 0, '000.000.000.000', now());
