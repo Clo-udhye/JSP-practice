@@ -61,6 +61,8 @@
 		
 	} catch(NamingException e){
 		System.out.println("[에러] " + e.getMessage());
+	} catch(SQLException e){
+		System.out.println("[에러] " + e.getMessage());
 	} finally {
 		if(rs!=null) rs.close();
 		if(pstmt!=null) pstmt.close();
