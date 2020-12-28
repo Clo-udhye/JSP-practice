@@ -61,7 +61,7 @@
 		System.out.println("[에러] " + e.getMessage());
 	} finally {
 		if(pstmt!=null) pstmt.close();
-		if(conn!=null) pstmt.close();
+		if(conn!=null) conn.close();
 	}
 	
 	out.println("<script type='text/javascript'>");
