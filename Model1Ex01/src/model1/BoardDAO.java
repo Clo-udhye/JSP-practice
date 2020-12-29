@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class BoardDAO {
+	// singleton pattern 
 	private DataSource dataSource = null;
 	
 	public BoardDAO() {
@@ -98,7 +99,7 @@ public class BoardDAO {
 	}
 	
 	// view
-	public BoardTO boardView(BoardTO to) {	
+	public BoardTO boardView(BoardTO to) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null; 
@@ -216,12 +217,7 @@ public class BoardDAO {
 				to.setSubject(rs.getString("subject"));
 				to.setWriter(rs.getString("writer"));
 				to.setContent(rs.getString("content"));
-				if(rs.getString("mail").equals("")){
-					//mail 입력이 되어있지않은 경우
-					to.setMail("");
-				} else {
-					to.setMail(rs.getString("mail"));
-				}
+				to.setMail(rs.getString("mail"));
 			}
 		} catch(SQLException e){
 			System.out.println("[에러] " + e.getMessage());

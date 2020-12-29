@@ -7,15 +7,12 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
-	
-	BoardDAO dao = new BoardDAO();
-	BoardTO to = new BoardTO();
-	
+
 	String seq = request.getParameter("seq");
-	String password = request.getParameter("password");
 	
+	BoardTO to = new BoardTO();
 	to.setSeq(seq);
-	to.setPassword(password);
+	to.setPassword(request.getParameter("password"));
 	
 	to.setSubject(request.getParameter("subject"));
 	to.setContent(request.getParameter("content"));
@@ -23,7 +20,8 @@
 	if(!request.getParameter("mail1").equals("") && !request.getParameter("mail2").equals("")){
 		to.setMail(request.getParameter("mail1") + "@" + request.getParameter("mail2"));
 	}
-	
+
+	BoardDAO dao = new BoardDAO();
 	int flag = dao.boardModifyOk(to);
 	
 	out.println("<script type='text/javascript'>");

@@ -7,14 +7,13 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	
-	String seq = request.getParameter("seq");
+	BoardTO to = new BoardTO();
+	to.setSeq(request.getParameter("seq"));
 	
- 	BoardDAO dao = new BoardDAO();
- 	BoardTO to = new BoardTO();
- 	to.setSeq(seq);
- 	
- 	to = dao.boardView(to);
+	BoardDAO dao = new BoardDAO();
+	to = dao.boardView(to);
 	
+	String seq = to.getSeq();
 	String subject = to.getSubject();
 	String writer = to.getWriter();
 	String mail = to.getMail();

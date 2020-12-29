@@ -17,8 +17,10 @@
 	String subject = to.getSubject();
 	String writer = to.getWriter();
 	String content = to.getContent();
-	String[] mail = new String[]{"", ""};
-	if(to.getMail()!=null && !to.getMail().equals("")){
+	String[] mail = null;
+	if(to.getMail().equals("")){
+		mail = new String[]{"", ""};
+	}else {
 		mail = to.getMail().split("@");
 	}
 
