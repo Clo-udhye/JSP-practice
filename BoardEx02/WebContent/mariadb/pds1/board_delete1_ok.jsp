@@ -8,7 +8,9 @@
 
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
+<%@page import="java.io.File"%>
 
 <%
 	request.setCharacterEncoding("utf-8");
@@ -18,8 +20,8 @@
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 	
-	// 정상처리 / 비정상 => 결과를 통합처리하기위한 변수
 	int flag = 2;
 	
 	try{
@@ -29,8 +31,18 @@
 		
 		conn = dataSource.getConnection();
 		
-		// 비밀번호는 프로그램 안쪽으로 가지고 들어오지않는다. 
-		String sql = "delete from board1 where seq = ? and password = ?";
+		// filename select
+		String sql = "select filename from pds_board1 where seq = ?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, seq);
+		
+		rs = pstmt.executeQuery();
+		String filename = null;
+		if(rs.next()){
+			filename = rs.getString("filename");
+		}
+		
+		sql = "delete from pds_board1 where seq = ? and password = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, seq);
 		pstmt.setString(2, password);
@@ -43,12 +55,17 @@
 		} else if(result == 1){
 			// 정상
 			flag = 0;
+			if(filename != null){
+				File file = new File("C:/Java/jsp-workspace/BoardEx02/WebContent/upload/" + filename);
+				file.delete();
+			}
 		}
 	} catch(NamingException e){
 		System.out.println("[에러] " + e.getMessage());
 	} catch(SQLException e){
 		System.out.println("[에러] " + e.getMessage());
 	} finally {
+		if(pstmt!=null) rs.close();
 		if(pstmt!=null) pstmt.close();
 		if(conn!=null) conn.close();
 	}

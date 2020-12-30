@@ -8,25 +8,41 @@
 
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException" %>
 
-<%
-	request.setCharacterEncoding("utf-8");
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="java.io.File" %>
 
-	String seq = request.getParameter("seq");
-	String password = request.getParameter("password");
+<%
+	String uploadPath = "C:/Java/jsp-workspace/BoardEx02/WebContent/upload";
+	int maxFileSize = 1024 *1024 * 2; 
+	String encType = "utf-8";
+
+	MultipartRequest multi = new MultipartRequest(request, uploadPath, maxFileSize, encType, new DefaultFileRenamePolicy());
+
+	String seq = multi.getParameter("seq");
+	String password = multi.getParameter("password");
 	
-	String subject = request.getParameter("subject");
-	String content = request.getParameter("content");
+	String subject = multi.getParameter("subject");
+	String content = multi.getParameter("content");
 	String mail = "";
-	if(!request.getParameter("mail1").equals("") && !request.getParameter("mail2").equals("")){
-		mail = request.getParameter("mail1") + "@" + request.getParameter("mail2");
+	if(!multi.getParameter("mail1").equals("") && !multi.getParameter("mail2").equals("")){
+		mail = multi.getParameter("mail1") + "@" + multi.getParameter("mail2");
+	}
+	
+	String newFilename = multi.getFilesystemName("upload");
+	long newFilesize = 0;
+	File newFile = multi.getFile("upload");
+	if(newFile != null){
+		newFilesize = newFile.length();
 	}
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
-	
-	// 정상처리 / 비정상 => 결과를 통합처리하기위한 변수
+	ResultSet rs = null;	
+
 	int flag = 2;
 	
 	try{
@@ -36,15 +52,36 @@
 		
 		conn = dataSource.getConnection();
 		
-		// 비밀번호는 프로그램 안쪽으로 가지고 들어오지않는다. 
-		String sql = "update board1 set subject = ?, content = ?, mail = ?  where seq = ? and password = ?";
+		// filename select
+		String sql = "select filename from pds_board1 where seq = ?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, subject);
-		pstmt.setString(2, content);
-		pstmt.setString(3, mail);
-		pstmt.setString(4, seq);
-		pstmt.setString(5, password);
+		pstmt.setString(1, seq);
+				
+		rs = pstmt.executeQuery();
+		String oldFilename = null;			
+		if(rs.next()){
+			oldFilename = rs.getString("filename");
+		}
 		
+		if(newFilename != null){ 
+			sql = "update pds_board1 set subject = ?, content = ?, mail = ?, filename = ?, filesize = ? where seq = ? and password = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setString(3, mail);
+			pstmt.setString(4, newFilename);
+			pstmt.setLong(5, newFilesize);
+			pstmt.setString(6, seq);
+			pstmt.setString(7, password);
+		} else {
+			sql = "update pds_board1 set subject = ?, content = ?, mail = ?  where seq = ? and password = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setString(3, mail);
+			pstmt.setString(4, seq);
+			pstmt.setString(5, password);
+		}
 		
 		int result = pstmt.executeUpdate();
 		if(result == 0){
@@ -53,12 +90,17 @@
 		} else if(result == 1){
 			// 정상
 			flag = 0;
+			if(newFilename != null && oldFilename != null){
+				File file = new File(uploadPath +"/"+ oldFilename);
+				file.delete();
+			}
 		}
 	} catch(NamingException e){
 		System.out.println("[에러] " + e.getMessage());
 	} catch(SQLException e){
 		System.out.println("[에러] " + e.getMessage());
 	} finally {
+		if(rs!=null) rs.close();
 		if(pstmt!=null) pstmt.close();
 		if(conn!=null) conn.close();
 	}
