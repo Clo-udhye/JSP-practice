@@ -15,7 +15,7 @@ public class BoardListTO {
 	
 	public BoardListTO() {
 		this.cpage = 1;
-		this.recordPerPage = 5;
+		this.recordPerPage = 10;
 		this.blockPerPage = 5;
 		this.totalPage = 1;
 		this.totalRecord = 0;

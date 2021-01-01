@@ -26,8 +26,7 @@
 	String content = to.getContent();
 	String filename = to.getFilename();
 	long filesize = to.getFilesize();
-	
-	BoardDAO dao1 = new BoardDAO();
+
 	ArrayList<ArrayList> prevNext = dao.findPrevNext(seq);
 	String prevSeq = (String)prevNext.get(0).get(0);
 	String prevSubject = (String)prevNext.get(0).get(1);

@@ -219,7 +219,7 @@ public class BoardDAO {
 		return to;
 	}
 	
-	// 이전글/다음글 seq찾기	//Map<seq,subject>
+	// 이전글/다음글 seq찾기
 	public ArrayList<ArrayList> findPrevNext(String seq) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

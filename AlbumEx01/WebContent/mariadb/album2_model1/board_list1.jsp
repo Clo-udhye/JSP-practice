@@ -35,8 +35,10 @@
 	
 	StringBuffer sbHtml = new StringBuffer();
 	
+	int cnt = 0;
 	if(lists != null){
 		for(BoardTO to : lists){
+			cnt++;
 			String seq = to.getSeq();
 			String subject = to.getSubject();
 			String writer = to.getWriter();
@@ -45,7 +47,11 @@
 			int wgap = to.getWgap();
 			String filename = to.getFilename();
 			long filesize = to.getFilesize();
-				
+			
+			if(cnt==6){
+				sbHtml.append("</tr>");
+				sbHtml.append("<tr>");
+			}
 			if(seq!=null){
 				sbHtml.append("<td width='20%' class='last2'>");
 				sbHtml.append("  <div class='board'>");
