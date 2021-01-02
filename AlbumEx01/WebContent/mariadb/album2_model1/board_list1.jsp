@@ -71,7 +71,9 @@
 				if(wgap == 0){
 					sbHtml.append("			   <img src='../../images/icon_new.gif' alt='NEW'>");	
 				}
-							
+				if(Integer.parseInt(hit) >= 10){
+					sbHtml.append("			   <img src='../../images/icon_hot.gif' alt='HIT'>");	
+				}			
 				sbHtml.append("		     </div>");
 				sbHtml.append("	       </td>");
 				sbHtml.append("      </tr>");
