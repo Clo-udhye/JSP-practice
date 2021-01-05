@@ -45,5 +45,14 @@
   	<servlet-name>gugudan02</servlet-name>
   	<url-pattern>/gugudan02</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>zipsearch01</servlet-name>
+  	<servlet-class>servlet.ZipcodeSearchEx01</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>zipsearch01</servlet-name>
+  	<url-pattern>/zipsearch01.naver</url-pattern>
+  </servlet-mapping>
  
 </web-app>
