@@ -18,4 +18,14 @@
   	<servlet-name>servlet01</servlet-name>
   	<url-pattern>/servlet01/*</url-pattern>
   </servlet-mapping>  
+  
+  <servlet>
+  	<servlet-name>servlet02</servlet-name>
+  	<servlet-class>servlet.ServletEx02</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>servlet02</servlet-name>
+  	<url-pattern>/servlet02</url-pattern>
+  </servlet-mapping>
+ 
 </web-app>
