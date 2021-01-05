@@ -27,5 +27,23 @@
   	<servlet-name>servlet02</servlet-name>
   	<url-pattern>/servlet02</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>gugudan01</servlet-name>
+  	<servlet-class>servlet.GugudanEx01</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>gugudan01</servlet-name>
+  	<url-pattern>/gugudan01</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>gugudan02</servlet-name>
+  	<servlet-class>servlet.GugudanEx02</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>gugudan02</servlet-name>
+  	<url-pattern>/gugudan02</url-pattern>
+  </servlet-mapping>
  
 </web-app>
